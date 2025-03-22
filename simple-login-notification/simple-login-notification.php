@@ -9,9 +9,9 @@
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 5.3
-	Tested up to: 6.7
-	Stable tag: 1.9
-	Version:    1.9
+	Tested up to: 6.8
+	Stable tag: 2.0
+	Version:    2.0
 	Requires PHP: 5.6.20
 	Text Domain: simple-login-notification
 	Domain Path: /languages
@@ -32,17 +32,17 @@
 	You should have received a copy of the GNU General Public License
 	with this program. If not, visit: https://www.gnu.org/licenses/
 	
-	Copyright 2024 Monzilla Media. All rights reserved.
+	Copyright 2025 Monzilla Media. All rights reserved.
 */
 
 if (!defined('ABSPATH')) die();
 
 
-if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '1.9');
+if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.0');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_REQUIRE')) define('SIMPLE_LOGIN_NOTIFICATION_REQUIRE', '5.3');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_URL'))     define('SIMPLE_LOGIN_NOTIFICATION_URL',     plugin_dir_url(__FILE__));
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_FILE'))    define('SIMPLE_LOGIN_NOTIFICATION_FILE',    plugin_basename(__FILE__));
-if (!defined('SIMPLE_LOGIN_NOTIFICATION_NAME'))    define('SIMPLE_LOGIN_NOTIFICATION_NAME',    __('Simple Login Notification', 'simple-login-notification'));
+if (!defined('SIMPLE_LOGIN_NOTIFICATION_NAME'))    define('SIMPLE_LOGIN_NOTIFICATION_NAME',    'Simple Login Notification');
 
 
 function simple_login_notification($login, $user) {
@@ -337,44 +337,6 @@ function simple_login_notification_check_version() {
 	
 }
 add_action('admin_init', 'simple_login_notification_check_version');
-
-
-function simple_login_notification_load_i18n() {
-	
-	$domain = 'simple-login-notification';
-	
-	$locale = apply_filters('simple_login_notification_locale', get_locale(), $domain);
-	
-	$dir    = trailingslashit(WP_LANG_DIR);
-	
-	$file   = $domain .'-'. $locale .'.mo';
-	
-	$path_1 = $dir . $file;
-	
-	$path_2 = $dir . $domain .'/'. $file;
-	
-	$path_3 = $dir .'plugins/'. $file;
-	
-	$path_4 = $dir .'plugins/'. $domain .'/'. $file;
-	
-	$paths = array($path_1, $path_2, $path_3, $path_4);
-	
-	foreach ($paths as $path) {
-		
-		if ($loaded = load_textdomain($domain, $path)) {
-			
-			return $loaded;
-			
-		} else {
-			
-			return load_plugin_textdomain($domain, false, dirname(SIMPLE_LOGIN_NOTIFICATION_FILE) .'/languages/');
-			
-		}
-		
-	}
-	
-}
-add_action('init', 'simple_login_notification_load_i18n');
 
 
 function simple_login_notification_admin_scripts($hook) {
@@ -749,14 +711,14 @@ function simple_login_notification_admin_notices() {
 			
 			?>
 			
-			<div class="notice notice-success notice-margin">
+			<div class="notice notice-success notice-margin notice-custom">
 				<p>
-					<strong><?php esc_html_e('Fall Sale!', 'simple-login-notification'); ?></strong> 
-					<?php esc_html_e('Take 25% OFF any of our', 'simple-login-notification'); ?> 
+					<strong><?php esc_html_e('Spring Sale!', 'simple-login-notification'); ?></strong> 
+					<?php esc_html_e('Take 30% OFF any of our', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/"><?php esc_html_e('Pro WordPress plugins', 'simple-login-notification'); ?></a> 
 					<?php esc_html_e('and', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://books.perishablepress.com/"><?php esc_html_e('books', 'simple-login-notification'); ?></a>. 
-					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>FALL2024</code> <?php esc_html_e('at checkout. Sale ends 12/21/24.', 'simple-login-notification'); ?> 
+					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>SPRING2025</code> <?php esc_html_e('at checkout. Sale ends 6/25/2025.', 'simple-login-notification'); ?> 
 					<?php echo simple_login_notification_dismiss_notice_link(); ?>
 				</p>
 			</div>
@@ -846,7 +808,7 @@ function simple_login_notification_dismiss_notice_link() {
 
 function simple_login_notification_check_date_expired() {
 	
-	$expires = apply_filters('simple_login_notification_check_date_expired', '2024-12-21');
+	$expires = apply_filters('simple_login_notification_check_date_expired', '2025-06-25');
 	
 	return (new DateTime() > new DateTime($expires)) ? true : false;
 	

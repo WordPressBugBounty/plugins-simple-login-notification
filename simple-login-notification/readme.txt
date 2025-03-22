@@ -9,9 +9,9 @@ Author URI: https://plugin-planet.com/
 Donate link: https://monzillamedia.com/donate.html
 Contributors: specialk
 Requires at least: 5.3
-Tested up to: 6.7
-Stable tag: 1.9
-Version:    1.9
+Tested up to: 6.8
+Stable tag: 2.0
+Version:    2.0
 Requires PHP: 5.6.20
 Text Domain: simple-login-notification
 Domain Path: /languages
@@ -49,7 +49,7 @@ I use this plugin to keep an eye on any unauthorized login attempts. Probably a 
 While researching for this plugin, I found four other "admin login notification" type plugins:
 
 * [Email Notification on Login](https://wordpress.org/plugins/email-notification-on-login/)
-* [Email notification on admin login](email-notification-on-admin-login)
+* [Email notification on admin login](https://wordpress.org/plugins/email-notification-on-admin-login/)
 * [Kaya Login Notification](https://wordpress.org/plugins/kaya-login-notification/)
 * [KolorWeb Access Admin Notification](https://wordpress.org/plugins/kolorweb-access-admin-notification/)
 
@@ -66,7 +66,7 @@ So I decided to build my own. Let me emphasize the utter simplicity of this plug
 
 This plugin does not collect or store any user data. It does not set any cookies, and it does not connect to any third-party locations. The *only* thing this plugin does is send an email for each admin-level login. Each email includes information about the user, such as username, IP address, user agent, and other details.
 
-Simple Login Notification is developed and maintained by [Jeff Starr](https://twitter.com/perishable), 15-year [WordPress developer](https://plugin-planet.com/) and [book author](https://books.perishablepress.com/).
+Simple Login Notification is developed and maintained by [Jeff Starr](https://x.com/perishable), 15-year [WordPress developer](https://plugin-planet.com/) and [book author](https://books.perishablepress.com/).
 
 
 
@@ -122,13 +122,14 @@ Send any questions or feedback via my [contact form](https://plugin-planet.com/s
 __Thank you__ for using Simple Login Notification! If you like the plugin, please show support with a [5-star rating &raquo;](https://wordpress.org/support/plugin/simple-login-notification/reviews/?rate=5#new-post)
 
 
-**1.9 (2024/10/14)**
+**2.0 (2025/03/22)**
 
-* Adds option to not send alerts to admin email address
-* Improves `add_settings` function
+* Fixes PHP Notice, re: `_load_textdomain_just_in_time`
+* Adds uninstall option `simple-login-notification-dismiss-notice`
+* Removes `_load_i18n()` function
 * Updates plugin settings page
-* Updates default translation template
-* Tests on WordPress 6.7 (beta)
+* Generates new language template
+* Tests on WordPress 6.8
 
 
 Full changelog @ [https://plugin-planet.com/wp/changelog/simple-login-notification.txt](https://plugin-planet.com/wp/changelog/simple-login-notification.txt)
