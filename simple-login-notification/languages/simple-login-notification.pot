@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple Login Notification\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-22 15:17+0000\n"
+"POT-Creation-Date: 2026-02-02 15:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,103 +16,101 @@ msgstr ""
 "X-Loco-Version: 2.6.2; wp-6.1-beta2-54361\n"
 "X-Domain: simple-login-notification"
 
-#: simple-login-notification.php:124
+#: simple-login-notification.php:126
 msgid " on "
 msgstr ""
 
-#: simple-login-notification.php:326
+#: simple-login-notification.php:358
 msgid " or higher, and has been deactivated! "
 msgstr ""
 
-#: simple-login-notification.php:611
+#: simple-login-notification.php:693
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: simple-login-notification.php:305
+#: simple-login-notification.php:337
 msgid "Admin"
 msgstr ""
 
-#: simple-login-notification.php:488
-msgid "Admin Email"
-msgstr ""
-
-#: simple-login-notification.php:719
+#: simple-login-notification.php:801
 msgid "and"
 msgstr ""
 
-#: simple-login-notification.php:721
+#: simple-login-notification.php:803
 msgid "Apply code"
 msgstr ""
 
-#: simple-login-notification.php:721
-msgid "at checkout. Sale ends 6/25/2025."
-msgstr ""
-
-#: simple-login-notification.php:720
-msgid "books"
-msgstr ""
-
-#: simple-login-notification.php:424
-msgid "Click here to rate and review this FREE plugin at WordPress.org!"
-msgstr ""
-
-#: simple-login-notification.php:385
-msgid "Confirm Reset"
-msgstr ""
-
-#: simple-login-notification.php:700
-msgid "Default options restored."
+#: simple-login-notification.php:803
+msgid "at checkout. Sale ends 3/28/2026."
 msgstr ""
 
 #: simple-login-notification.php:802
+msgid "books"
+msgstr ""
+
+#: simple-login-notification.php:494
+msgid "Click here to rate and review this FREE plugin at WordPress.org!"
+msgstr ""
+
+#: simple-login-notification.php:455
+msgid "Confirm Reset"
+msgstr ""
+
+#: simple-login-notification.php:559
+msgid "Default Address"
+msgstr ""
+
+#: simple-login-notification.php:782
+msgid "Default options restored."
+msgstr ""
+
+#: simple-login-notification.php:884
 msgid "Dismiss"
 msgstr ""
 
-#: simple-login-notification.php:488
-msgid ""
-"Do NOT send notification to Admin email address (located in Settings &gt; "
-"General)"
-msgstr ""
-
-#: simple-login-notification.php:658
+#: simple-login-notification.php:740
 msgid "Donate via PayPal, credit card, or cryptocurrency"
 msgstr ""
 
-#: simple-login-notification.php:487
+#: simple-login-notification.php:557
 msgid "Exclude IPs"
 msgstr ""
 
-#: simple-login-notification.php:486
+#: simple-login-notification.php:558
+msgid "Exclude Users"
+msgstr ""
+
+#: simple-login-notification.php:556
 msgid "Extra Emails"
 msgstr ""
 
-#: simple-login-notification.php:479
+#: simple-login-notification.php:549
 msgid "General Settings"
 msgstr ""
 
-#: simple-login-notification.php:483
+#: simple-login-notification.php:553
 msgid "Get your current IP address&nbsp;&raquo;"
 msgstr ""
 
-#: simple-login-notification.php:419
+#: simple-login-notification.php:489
 msgid "Homepage"
 msgstr ""
 
-#: simple-login-notification.php:258
-msgid "HOST CLIENT"
+#: simple-login-notification.php:287
+msgid "HOST CLIENT:   "
 msgstr ""
 
-#: simple-login-notification.php:259
-msgid "HOST FORWARD"
+#: simple-login-notification.php:288
+msgid "HOST FORWARD:  "
 msgstr ""
 
-#: simple-login-notification.php:257
-msgid "HOST REMOTE"
+#: simple-login-notification.php:286
+msgid "HOST REMOTE:   "
 msgstr ""
 
-#: simple-login-notification.php:251
-msgid "HTTP HOST"
+#: simple-login-notification.php:280
+msgid "HTTP HOST:     "
 msgstr ""
 
 #. URI of the plugin
@@ -123,109 +121,125 @@ msgstr ""
 msgid "https://plugin-planet.com/"
 msgstr ""
 
-#: simple-login-notification.php:483
-msgid "Ignore these IP addresses (separate multiple w/ commas)."
+#: simple-login-notification.php:553
+msgid "Ignore logins from these IP addresses (separate multiple w/ commas)."
 msgstr ""
 
-#: simple-login-notification.php:254
-msgid "IP CLIENT"
+#: simple-login-notification.php:558
+msgid ""
+"Ignore logins from these users (enter numerical user IDs) (separate multiple "
+"w/ commas)"
 msgstr ""
 
-#: simple-login-notification.php:255
-msgid "IP FORWARD"
+#: simple-login-notification.php:283
+msgid "IP CLIENT:     "
 msgstr ""
 
-#: simple-login-notification.php:253
-msgid "IP REMOTE"
+#: simple-login-notification.php:284
+msgid "IP FORWARD:    "
+msgstr ""
+
+#: simple-login-notification.php:282
+msgid "IP REMOTE:     "
 msgstr ""
 
 #. Author of the plugin
 msgid "Jeff Starr"
 msgstr ""
 
-#: simple-login-notification.php:445
+#: simple-login-notification.php:515
 msgid "Like this plugin? Give it a"
 msgstr ""
 
-#: simple-login-notification.php:124
+#: simple-login-notification.php:126
 msgid "logged in at "
 msgstr ""
 
-#: simple-login-notification.php:78
+#: simple-login-notification.php:80
 msgid "Login @ "
 msgstr ""
 
-#: simple-login-notification.php:126
-msgid "LOGIN NAME: "
+#: simple-login-notification.php:276
+msgid "LOGIN NAME:    "
 msgstr ""
 
-#: simple-login-notification.php:461
+#: simple-login-notification.php:531
 msgid "Login Notification"
 msgstr ""
 
-#: simple-login-notification.php:704
+#: simple-login-notification.php:786
 msgid "No changes made to options."
 msgstr ""
 
-#: simple-login-notification.php:388
+#: simple-login-notification.php:458
 msgid "No, abort mission."
 msgstr ""
 
-#: simple-login-notification.php:327
+#: simple-login-notification.php:359
 msgid "Please return to the"
 msgstr ""
 
-#: simple-login-notification.php:418
+#: simple-login-notification.php:488
 msgid "Plugin Homepage"
 msgstr ""
 
-#: simple-login-notification.php:718
+#: simple-login-notification.php:800
 msgid "Pro WordPress plugins"
 msgstr ""
 
-#: simple-login-notification.php:247
-msgid "QUERY"
+#: simple-login-notification.php:278
+msgid "QUERY STRING:  "
 msgstr ""
 
-#: simple-login-notification.php:490
+#: simple-login-notification.php:561
 msgid "Rate Plugin"
 msgstr ""
 
-#: simple-login-notification.php:425
+#: simple-login-notification.php:495
 msgid "Rate this plugin"
 msgstr ""
 
-#: simple-login-notification.php:248
-msgid "REFERRER"
+#: simple-login-notification.php:290
+msgid "REFERRER: "
 msgstr ""
 
-#: simple-login-notification.php:246
-msgid "REQUEST URI"
+#: simple-login-notification.php:277
+msgid "REQUEST URI:   "
 msgstr ""
 
-#: simple-login-notification.php:325
+#: simple-login-notification.php:357
 msgid "requires WordPress "
 msgstr ""
 
-#: simple-login-notification.php:489
+#: simple-login-notification.php:560
 msgid "Reset Options"
 msgstr ""
 
-#: simple-login-notification.php:386
+#: simple-login-notification.php:456
 msgid "Restore default options?"
 msgstr ""
 
-#: simple-login-notification.php:489 simple-login-notification.php:634
+#: simple-login-notification.php:560 simple-login-notification.php:716
 msgid "Restore default plugin options"
 msgstr ""
 
-#: simple-login-notification.php:486
+#: simple-login-notification.php:687
+msgid "Select all"
+msgstr ""
+
+#: simple-login-notification.php:556
 msgid ""
 "Send notifications to additional email addresses (separate multiple w/ "
 "commas)"
 msgstr ""
 
-#: simple-login-notification.php:485
+#: simple-login-notification.php:559
+msgid ""
+"Send notifications to Extra Emails only, and DO NOT send to Administration "
+"Email Address (Settings &#9656; General)"
+msgstr ""
+
+#: simple-login-notification.php:555
 msgid "Send notifications when any of the following users log in:"
 msgstr ""
 
@@ -233,27 +247,27 @@ msgstr ""
 msgid "Sends an email when any admin-level user logs in to your site."
 msgstr ""
 
-#: simple-login-notification.php:250
-msgid "SERVER"
+#: simple-login-notification.php:279
+msgid "SERVER:        "
 msgstr ""
 
-#: simple-login-notification.php:401
+#: simple-login-notification.php:471
 msgid "Settings"
 msgstr ""
 
-#: simple-login-notification.php:492
+#: simple-login-notification.php:563
 msgid "Show Support"
 msgstr ""
 
-#: simple-login-notification.php:645
+#: simple-login-notification.php:727
 msgid "Show support for this FREE plugin! THANK YOU in advance :)"
 msgstr ""
 
-#: simple-login-notification.php:490 simple-login-notification.php:647
+#: simple-login-notification.php:561 simple-login-notification.php:729
 msgid "Show support with a 5-star rating&nbsp;&raquo;"
 msgstr ""
 
-#: simple-login-notification.php:492 simple-login-notification.php:660
+#: simple-login-notification.php:563 simple-login-notification.php:742
 msgid "Show support with a small donation&nbsp;&raquo;"
 msgstr ""
 
@@ -261,57 +275,57 @@ msgstr ""
 msgid "Simple Login Notification"
 msgstr ""
 
-#: simple-login-notification.php:716
-msgid "Spring Sale!"
+#: simple-login-notification.php:799
+msgid "Take 20% OFF any of our"
 msgstr ""
 
-#: simple-login-notification.php:717
-msgid "Take 30% OFF any of our"
-msgstr ""
-
-#: simple-login-notification.php:136
+#: simple-login-notification.php:132
 msgid ""
 "This email alert is sent via the WordPress plugin, Simple Login Notification."
 msgstr ""
 
-#: simple-login-notification.php:537
+#: simple-login-notification.php:611
 msgid ""
 "This plugin sends a detailed email notification when users log in to your "
 "site."
 msgstr ""
 
-#: simple-login-notification.php:328
+#: simple-login-notification.php:360
 msgid "to upgrade WordPress and try again."
 msgstr ""
 
-#: simple-login-notification.php:225
+#: simple-login-notification.php:248
 msgid "undefined"
 msgstr ""
 
-#: simple-login-notification.php:249
-msgid "USER AGENT"
+#: simple-login-notification.php:291
+msgid "USER AGENT: "
 msgstr ""
 
-#: simple-login-notification.php:485
+#: simple-login-notification.php:555
 msgid "User Roles"
 msgstr ""
 
-#: simple-login-notification.php:539
+#: simple-login-notification.php:613
 msgid "Visit plugin docs&nbsp;&raquo;"
 msgstr ""
 
-#: simple-login-notification.php:134
+#: simple-login-notification.php:130
 msgid "Visit site: "
 msgstr ""
 
-#: simple-login-notification.php:328
+#: simple-login-notification.php:360
 msgid "WP Admin Area"
 msgstr ""
 
-#: simple-login-notification.php:387
+#: simple-login-notification.php:457
 msgid "Yes, make it so."
 msgstr ""
 
-#: simple-login-notification.php:449
+#: simple-login-notification.php:519
 msgid "★★★★★ rating&nbsp;&raquo;"
+msgstr ""
+
+#: simple-login-notification.php:798
+msgid "❄️ Winter Sale!"
 msgstr ""

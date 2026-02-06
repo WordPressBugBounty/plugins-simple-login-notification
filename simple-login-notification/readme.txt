@@ -9,34 +9,42 @@ Author URI: https://plugin-planet.com/
 Donate link: https://monzillamedia.com/donate.html
 Contributors: specialk
 Requires at least: 5.3
-Tested up to: 6.8
-Stable tag: 2.0
-Version:    2.0
+Tested up to: 6.9
+Stable tag: 2.2
+Version:    2.2
 Requires PHP: 5.6.20
 Text Domain: simple-login-notification
 Domain Path: /languages
 License: GPL v2 or later
 
-Sends an email when any admin-level user logs in to your site.
+Sends a notification email when admins and other users log in to your site.
 
 
 
 == Description ==
 
-Activate this plugin to send an email when any admin-level user logs in to your site. This is useful for keeping an eye on any unauthorized administrator logins. Each email alert includes the user name, IP address, user agent, and other details. Just in case you need to do some forensic investigation.
+Sends a detailed notification email when admins and other users log in to your site. Choose the user levels/roles for which you would like to receive login notifications. Optionally exclude users and/or IP addresses.
+
+This plugin is useful for keeping an eye on any unauthorized administrator or user logins. Each email alert includes the user name, IP address, user agent, and other details. Very useful for forensic investigations.
+
+> 👁️ Keep an eye on things..
 
 
 **Features**
 
-* Send email to any user role or email address
-* Exclude email notifications for any IP address
-* Provides detailed information about each admin login
-* Provides option to exclude/whitelist any IP addresses
-* Lightweight and fast - total plugin size around 70 KB
-* Simple to use - activate and done, just works
+* Send email alerts for any user level/role
+* Option to exclude alerts for any user ID
+* Option to exclude alerts for any IP address
+* Send alerts to additional email addresses
+* Automatically send alerts to main Admin user
+* Option to disable alerts for main Admin user
+* Provides detailed information about each login
+* Lightweight and fast: total plugin size &lt; 100KB
+* Simple to use: configure a few options and done
 * No permanent changes are made to anything
-* No settings or anything to worry about
 * Easy peasy mac and cheesy
+
+> 👇 Check out the [screenshots](https://wordpress.org/plugins/simple-login-notification/#screenshots)
 
 
 **Why is this useful?**
@@ -74,14 +82,23 @@ Simple Login Notification is developed and maintained by [Jeff Starr](https://x.
 
 **Installing the plugin**
 
-Activate like any other plugin and done. There are no settings, works automatically.
+1. Upload the plugin and activate
+2. Configure the plugin settings as desired
 
-More info on [installing WP plugins](https://wordpress.org/support/article/managing-plugins/#installing-plugins).
+[More info on installing WP plugins](https://wordpress.org/documentation/article/manage-plugins/#installing-plugins-1)
 
 
-**Using the plugin**
+**Configuration**
 
-Activate and done. The plugin requires nothing else to work its magic.
+By default, email alerts are sent only when admin-level users log in to your site. To include additional user levels/roles, check out the plugin setting, "User Roles".
+
+By default, email alerts are sent only to the Administration Email Address (as specified in the WP General settings). To disable sending of alerts to this address, visit the plugin setting, "Default Address". __Important:__ if you disable sending to the default address, make sure that at least one email address is entered in the setting, "Extra Email". Otherwise, no email alerts will be sent!
+
+To disable alerts for any user, visit the plugin setting, "Exclude Users". There you can enter any user IDs that should NOT receive email alerts. Separate multiple user IDs with commas.
+
+To send email alerts to additional email addresses, visit the plugin setting, "Extra Emails". Separate multiple email addresses with commas.
+
+To disable email alerts for any specific IP address(es), visit the plugin setting, "Exclude IPs". More information on this below.
 
 
 **Exclude IP address**
@@ -97,15 +114,59 @@ To add an IP address to the "Exclude IPs" setting, you can use any of the follow
 __Important:__ Separate multiple IP/strings with commas.
 
 
+**Email notifications**
+
+Here is an example of what the email notifications (alerts) look like:
+
+	Admin logged in at Example Site on February 1, 2026 @ 10:47 pm
+	
+	LOGIN NAME:    Example User
+	REQUEST URI:   /wp-login.php
+	QUERY STRING:  undefined
+	SERVER:        example.com
+	HTTP HOST:     example.com
+	IP REMOTE:     123.123.123.123
+	IP CLIENT:     undefined
+	IP FORWARD:    undefined
+	HOST REMOTE:   123.123.123.123
+	HOST CLIENT:   undefined
+	HOST FORWARD:  undefined
+	
+	REFERRER: https://example.com/wp-login.php
+	
+	USER AGENT: Mozilla/5.0; Chrome/144.0.0.0 Safari/537.36
+	
+	Visit site: https://example.com/
+	
+	This email alert is sent via the WordPress plugin, Simple Login Notification.
+
+
+**Like the plugin?**
+
+If you like Simple Login Notification, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/simple-login-notification/reviews/?rate=5#new-post). It helps to keep development and support going strong. Thank you!
+
+
+**Restore default options**
+
+To restore the default options at any time, visit the plugin settings and click the link that says, "Reset Options".
+
+
 **Uninstalling**
 
-To uninstall/remove the plugin, visit the Plugins screen, deactivate and delete the plugin. This plugin makes no changes to the WP database.
+This plugin cleans up after itself. All plugin settings will be removed from the WordPress database when the plugin is deleted via the WP Plugins screen.
 
 
 
 == Upgrade Notice ==
 
-To upgrade this plugin, remove the old version and replace with the new version. Or just click "Update" from the Plugins screen and let WordPress do it for you automatically.
+Visit the WordPress Plugins screen, locate the plugin, and click "Update" :)
+
+
+
+== Screenshots ==
+
+1. Plugin settings
+2. Email notification (using monospace font)
 
 
 
@@ -122,14 +183,18 @@ Send any questions or feedback via my [contact form](https://plugin-planet.com/s
 __Thank you__ for using Simple Login Notification! If you like the plugin, please show support with a [5-star rating &raquo;](https://wordpress.org/support/plugin/simple-login-notification/reviews/?rate=5#new-post)
 
 
-**2.0 (2025/03/22)**
+**2.2 (2026/02/01)**
 
-* Fixes PHP Notice, re: `_load_textdomain_just_in_time`
-* Adds uninstall option `simple-login-notification-dismiss-notice`
-* Removes `_load_i18n()` function
+* Adds option to exclude any users based on ID
+* Adds filter hooks for date and time formats
+* Adds "select all" checkboxes utility
+* Improves login notification message
 * Updates plugin settings page
+* Adds screenshots to home page
+* Improves readme.txt documentation
 * Generates new language template
-* Tests on WordPress 6.8
+* Tests on PHP 8.4 and 8.5
+* Tests on WordPress 6.9
 
 
 Full changelog @ [https://plugin-planet.com/wp/changelog/simple-login-notification.txt](https://plugin-planet.com/wp/changelog/simple-login-notification.txt)

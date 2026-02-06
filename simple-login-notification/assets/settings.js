@@ -1,5 +1,15 @@
 jQuery(document).ready(function($) {
 	
+	// Select All
+	
+	$('.sln-checkbox-all').click(function() {
+		$('.sln-checkbox-role').prop('checked', this.checked);
+	});
+	$('.sln-checkbox-role').change(function() {
+		var check = ($('.sln-checkbox-role').filter(':checked').length == $('.sln-checkbox-role').length);
+		$('.sln-checkbox-all').prop('checked', check);
+	});
+	
 	// Dialog
 	
 	$('.simple-login-notification-reset-options').on('click', function(e) {

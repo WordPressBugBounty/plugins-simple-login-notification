@@ -9,16 +9,14 @@
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 5.3
-	Tested up to: 6.8
-	Stable tag: 2.0
-	Version:    2.0
+	Tested up to: 6.9
+	Stable tag: 2.2
+	Version:    2.2
 	Requires PHP: 5.6.20
 	Text Domain: simple-login-notification
 	Domain Path: /languages
 	License: GPL v2 or later
-*/
-
-/*
+	
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
 	as published by the Free Software Foundation; either version 
@@ -32,13 +30,13 @@
 	You should have received a copy of the GNU General Public License
 	with this program. If not, visit: https://www.gnu.org/licenses/
 	
-	Copyright 2025 Monzilla Media. All rights reserved.
+	Copyright 2022-2026 Monzilla Media. All rights reserved.
 */
 
 if (!defined('ABSPATH')) die();
 
 
-if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.0');
+if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.2');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_REQUIRE')) define('SIMPLE_LOGIN_NOTIFICATION_REQUIRE', '5.3');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_URL'))     define('SIMPLE_LOGIN_NOTIFICATION_URL',     plugin_dir_url(__FILE__));
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_FILE'))    define('SIMPLE_LOGIN_NOTIFICATION_FILE',    plugin_basename(__FILE__));
@@ -57,9 +55,13 @@ function simple_login_notification($login, $user) {
 			
 			if (simple_login_notification_check_ip()) {
 				
-				simple_login_notification_email($login, $role);
-				
-				return;
+				if (simple_login_notification_check_user($user)) {
+					
+					simple_login_notification_email($login, $role);
+					
+					return;
+					
+				}
 				
 			}
 			
@@ -114,28 +116,49 @@ function simple_login_notification_email($login, $role) {
 
 function simple_login_notification_message($login, $name, $role) {
 	
-	$date_format = get_option('date_format');
-	$time_format = get_option('time_format');
+	$date_format = apply_filters('simple_login_notification_date_format', get_option('date_format'));
+	$time_format = apply_filters('simple_login_notification_time_format', get_option('time_format'));
 	
 	$format = $date_format .' @ '. $time_format;
 	
 	$date = current_datetime()->format($format);
 	
-	$message  = simple_login_notification_format_role($role) .' '. __('logged in at ', 'simple-login-notification') . $name . __(' on ', 'simple-login-notification') . $date . "\n\n";
+	$message = simple_login_notification_format_role($role) .' '. __('logged in at ', 'simple-login-notification') . $name . __(' on ', 'simple-login-notification') . $date . "\n\n";
 	
-	$message .= __('LOGIN NAME: ', 'simple-login-notification') . $login . "\n";
+	$message .= simple_login_notification_vars_format($login);
 	
-	foreach (simple_login_notification_vars() as $key => $val) {
-		
-		$message .= $key .': '. $val . "\n";
-		
-	}
-	
-	$message .= "\n" . __('Visit site: ', 'simple-login-notification') . get_bloginfo('url') . "\n\n";
+	$message .= "\n" . __('Visit site: ', 'simple-login-notification') . trailingslashit(get_bloginfo('url')) . "\n\n";
 	
 	$message .= __('This email alert is sent via the WordPress plugin, Simple Login Notification.', 'simple-login-notification');
 	
 	return $message;
+	
+}
+
+
+function simple_login_notification_check_user($user) {
+	
+	$default = simple_login_notification_default_options();
+	
+	$options = get_option('simple_login_notification_options', $default);
+	
+	$ids = isset($options['exclude_users']) ? $options['exclude_users'] : null;
+	
+	$ids = explode(',', $ids);
+	
+	foreach ($ids as $id) {
+		
+		$id = trim($id, ', ');
+		
+		if (property_exists($user, 'ID') && (int) $user->ID === (int) $id) {
+			
+			return false;
+			
+		}
+		
+	}
+	
+	return true;
 	
 }
 
@@ -241,24 +264,33 @@ function simple_login_notification_vars() {
 	
 	$query = !empty($query) ? $query : $undefined;
 	
-	return array(
-		
-		__('REQUEST URI',  'simple-login-notification') => $request, 
-		__('QUERY',        'simple-login-notification') => $query, 
-		__('REFERRER',     'simple-login-notification') => $referer, 
-		__('USER AGENT',   'simple-login-notification') => $agent, 
-		__('SERVER',       'simple-login-notification') => $server, 
-		__('HTTP HOST',    'simple-login-notification') => $http_host, 
-		
-		__('IP REMOTE',    'simple-login-notification') => $ip_remote, 
-		__('IP CLIENT',    'simple-login-notification') => $ip_client, 
-		__('IP FORWARD',   'simple-login-notification') => $ip_forwrd, 
-		
-		__('HOST REMOTE',  'simple-login-notification') => $host_remote, 
-		__('HOST CLIENT',  'simple-login-notification') => $host_client, 
-		__('HOST FORWARD', 'simple-login-notification') => $host_forwrd,
-		
-	);
+	return array($request, $query, $referer, $agent, $server, $http_host, $ip_remote, $ip_client, $ip_forwrd, $host_remote, $host_client, $host_forwrd);
+	
+}
+
+
+function simple_login_notification_vars_format($login) {
+	
+	list ($request, $query, $referer, $agent, $server, $http_host, $ip_remote, $ip_client, $ip_forwrd, $host_remote, $host_client, $host_forwrd) = simple_login_notification_vars();
+	
+	$data  = __('LOGIN NAME:    ', 'simple-login-notification') . $login       . "\n";
+	$data .= __('REQUEST URI:   ', 'simple-login-notification') . $request     . "\n";
+	$data .= __('QUERY STRING:  ', 'simple-login-notification') . $query       . "\n";
+	$data .= __('SERVER:        ', 'simple-login-notification') . $server      . "\n";
+	$data .= __('HTTP HOST:     ', 'simple-login-notification') . $http_host   . "\n";
+	
+	$data .= __('IP REMOTE:     ', 'simple-login-notification') . $ip_remote   . "\n";
+	$data .= __('IP CLIENT:     ', 'simple-login-notification') . $ip_client   . "\n";
+	$data .= __('IP FORWARD:    ', 'simple-login-notification') . $ip_forwrd   . "\n";
+	
+	$data .= __('HOST REMOTE:   ', 'simple-login-notification') . $host_remote . "\n";
+	$data .= __('HOST CLIENT:   ', 'simple-login-notification') . $host_client . "\n";
+	$data .= __('HOST FORWARD:  ', 'simple-login-notification') . $host_forwrd . "\n\n";
+	
+	$data .= __('REFERRER: ',   'simple-login-notification') . $referer . "\n\n";
+	$data .= __('USER AGENT: ', 'simple-login-notification') . $agent   . "\n";
+	
+	return $data;
 	
 }
 
@@ -372,6 +404,44 @@ function simple_login_notification_get_current_screen_id() {
 }
 
 
+function simple_login_notification_load_i18n() {
+	
+	$domain = 'simple-login-notification';
+	
+	$locale = apply_filters('simple_login_notification_locale', get_locale(), $domain);
+	
+	$dir    = trailingslashit(WP_LANG_DIR);
+	
+	$file   = $domain .'-'. $locale .'.mo';
+	
+	$path_1 = $dir . $file;
+	
+	$path_2 = $dir . $domain .'/'. $file;
+	
+	$path_3 = $dir .'plugins/'. $file;
+	
+	$path_4 = $dir .'plugins/'. $domain .'/'. $file;
+	
+	$paths = array($path_1, $path_2, $path_3, $path_4);
+	
+	foreach ($paths as $path) {
+		
+		if ($loaded = load_textdomain($domain, $path)) {
+			
+			return $loaded;
+			
+		} else {
+			
+			return load_plugin_textdomain($domain, false, dirname(SIMPLE_LOGIN_NOTIFICATION_FILE) .'/languages/');
+			
+		}
+		
+	}
+	
+}
+add_action('init', 'simple_login_notification_load_i18n');
+
+
 function simple_login_notification_admin_print_scripts() {
 	
 	$screen_id = simple_login_notification_get_current_screen_id();
@@ -480,16 +550,17 @@ function simple_login_notification_add_settings() {
 	
 	// add_settings_field($id, $title, $callback, $page, $section, $args)
 	
-	$exclude_label = esc_html__('Ignore these IP addresses (separate multiple w/ commas).', 'simple-login-notification') .' <a target="_blank" rel="noopener noreferrer" href="https://perishablepress.com/tools/ip/">'. esc_html__('Get your current IP address&nbsp;&raquo;', 'simple-login-notification') .'</a>';
+	$exclude_label = esc_html__('Ignore logins from these IP addresses (separate multiple w/ commas).', 'simple-login-notification') .' <a target="_blank" rel="noopener noreferrer" href="https://perishablepress.com/tools/ip/">'. esc_html__('Get your current IP address&nbsp;&raquo;', 'simple-login-notification') .'</a>';
 	
-	add_settings_field('roles',         esc_html__('User Roles',    'simple-login-notification'), 'simple_login_notification_callback_checkboxes', 'simple_login_notification_options', 'general', array('id' => 'roles',         'label' => esc_html__('Send notifications when any of the following users log in:', 'simple-login-notification')));
-	add_settings_field('email_adds',    esc_html__('Extra Emails',  'simple-login-notification'), 'simple_login_notification_callback_textarea',   'simple_login_notification_options', 'general', array('id' => 'email_adds',    'label' => esc_html__('Send notifications to additional email addresses (separate multiple w/ commas)', 'simple-login-notification')));
-	add_settings_field('exclude_ips',   esc_html__('Exclude IPs',   'simple-login-notification'), 'simple_login_notification_callback_textarea',   'simple_login_notification_options', 'general', array('id' => 'exclude_ips',   'label' => $exclude_label));
-	add_settings_field('admin_email',   esc_html__('Admin Email',   'simple-login-notification'), 'simple_login_notification_callback_checkboxes', 'simple_login_notification_options', 'general', array('id' => 'admin_email',   'label' => esc_html__('Do NOT send notification to Admin email address (located in Settings &gt; General)', 'simple-login-notification')));
-	add_settings_field('reset_options', esc_html__('Reset Options', 'simple-login-notification'), 'simple_login_notification_callback_reset',      'simple_login_notification_options', 'general', array('id' => 'reset_options', 'label' => esc_html__('Restore default plugin options', 'simple-login-notification')));
-	add_settings_field('link_rate',     esc_html__('Rate Plugin',   'simple-login-notification'), 'simple_login_notification_callback_rate',       'simple_login_notification_options', 'general', array('id' => 'link_rate',     'label' => esc_html__('Show support with a 5-star rating&nbsp;&raquo;', 'simple-login-notification')));
+	add_settings_field('roles',         esc_html__('User Roles',      'simple-login-notification'), 'simple_login_notification_callback_checkboxes', 'simple_login_notification_options', 'general', array('id' => 'roles',         'label' => esc_html__('Send notifications when any of the following users log in:', 'simple-login-notification')));
+	add_settings_field('email_adds',    esc_html__('Extra Emails',    'simple-login-notification'), 'simple_login_notification_callback_textarea',   'simple_login_notification_options', 'general', array('id' => 'email_adds',    'label' => esc_html__('Send notifications to additional email addresses (separate multiple w/ commas)', 'simple-login-notification')));
+	add_settings_field('exclude_ips',   esc_html__('Exclude IPs',     'simple-login-notification'), 'simple_login_notification_callback_textarea',   'simple_login_notification_options', 'general', array('id' => 'exclude_ips',   'label' => $exclude_label));
+	add_settings_field('exclude_users', esc_html__('Exclude Users',   'simple-login-notification'), 'simple_login_notification_callback_textarea',   'simple_login_notification_options', 'general', array('id' => 'exclude_users', 'label' => esc_html__('Ignore logins from these users (enter numerical user IDs) (separate multiple w/ commas)', 'simple-login-notification')));
+	add_settings_field('admin_email',   esc_html__('Default Address', 'simple-login-notification'), 'simple_login_notification_callback_checkboxes', 'simple_login_notification_options', 'general', array('id' => 'admin_email',   'label' => esc_html__('Send notifications to Extra Emails only, and DO NOT send to Administration Email Address (Settings &#9656; General)', 'simple-login-notification')));
+	add_settings_field('reset_options', esc_html__('Reset Options',   'simple-login-notification'), 'simple_login_notification_callback_reset',      'simple_login_notification_options', 'general', array('id' => 'reset_options', 'label' => esc_html__('Restore default plugin options', 'simple-login-notification')));
+	add_settings_field('link_rate',     esc_html__('Rate Plugin',     'simple-login-notification'), 'simple_login_notification_callback_rate',       'simple_login_notification_options', 'general', array('id' => 'link_rate',     'label' => esc_html__('Show support with a 5-star rating&nbsp;&raquo;', 'simple-login-notification')));
 	
-	add_settings_field('show_support',  esc_html__('Show Support',  'simple-login-notification'), 'simple_login_notification_callback_support',  'simple_login_notification_options', 'general', array('id' => 'show_support',  'label' => esc_html__('Show support with a small donation&nbsp;&raquo;', 'simple-login-notification')));
+	add_settings_field('show_support',  esc_html__('Show Support',    'simple-login-notification'), 'simple_login_notification_callback_support',    'simple_login_notification_options', 'general', array('id' => 'show_support',  'label' => esc_html__('Show support with a small donation&nbsp;&raquo;', 'simple-login-notification')));
 	
 }
 add_filter('admin_init', 'simple_login_notification_add_settings');
@@ -503,10 +574,12 @@ function simple_login_notification_validate_settings($input) {
 		
 	}
 	
-	$input['exclude_ips'] = sanitize_text_field($input['exclude_ips']);
-	
 	if (isset($input['email_adds'])) $input['email_adds'] = wp_filter_nohtml_kses($input['email_adds']);
 	else $input['email_adds'] = null;
+	
+	$input['exclude_ips'] = sanitize_text_field($input['exclude_ips']);
+	
+	$input['exclude_users'] = sanitize_text_field($input['exclude_users']);
 	
 	if (!isset($input['admin_email'])) $input['admin_email'] = null;
 	$input['admin_email'] = ($input['admin_email'] == 1 ? 1 : 0);
@@ -520,10 +593,11 @@ function simple_login_notification_default_options() {
 	
 	$options = array(
 		
-		'exclude_ips' => '',
-		'roles'       => array('administrator'),
-		'email_adds'  => '',
-		'admin_email' => false
+		'exclude_ips'   => '',
+		'roles'         => array('administrator'),
+		'email_adds'    => '',
+		'admin_email'   => false,
+		'exclude_users' => ''
 		
 	);
 	
@@ -606,13 +680,21 @@ function simple_login_notification_callback_checkboxes($args) {
 		
 		echo '<ul class="settings-list">';
 		
+		if ((int) count($roles) > 3) {
+			
+			echo '<li><input id="sln-checkbox-all" class="sln-checkbox-all" type="checkbox"> ';
+			
+			echo '<label class="inline-block" for="sln-checkbox-all">'. esc_html__('Select all', 'simple-login-notification') .'</label></li>';
+			
+		}
+		
 		foreach ($roles as $role_id => $role_name) {
 			
 			$role_name = sprintf(__('%s', 'simple-login-notification'), $role_name);
 			
 			$name = 'simple_login_notification_options['. $id .']['. $role_id .']';
 			
-			echo '<li><input type="checkbox" name="'. esc_attr($name) .'" id="'. esc_attr($name) .'" '. checked(true, in_array($role_id, $value), false) .' value="'. esc_attr($role_id) .'"> ';
+			echo '<li><input type="checkbox" name="'. esc_attr($name) .'" id="'. esc_attr($name) .'" '. checked(true, in_array($role_id, $value), false) .' value="'. esc_attr($role_id) .'" class="sln-checkbox-role"> ';
 			
 			echo '<label class="inline-block" for="'. esc_attr($name) .'">'. esc_html($role_name) .'</label></li>';
 			
@@ -711,14 +793,14 @@ function simple_login_notification_admin_notices() {
 			
 			?>
 			
-			<div class="notice notice-success notice-margin notice-custom">
+			<div class="notice notice-success notice-lh">
 				<p>
-					<strong><?php esc_html_e('Spring Sale!', 'simple-login-notification'); ?></strong> 
-					<?php esc_html_e('Take 30% OFF any of our', 'simple-login-notification'); ?> 
+					<strong><?php esc_html_e('❄️ Winter Sale!', 'simple-login-notification'); ?></strong> 
+					<?php esc_html_e('Take 20% OFF any of our', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/"><?php esc_html_e('Pro WordPress plugins', 'simple-login-notification'); ?></a> 
 					<?php esc_html_e('and', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://books.perishablepress.com/"><?php esc_html_e('books', 'simple-login-notification'); ?></a>. 
-					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>SPRING2025</code> <?php esc_html_e('at checkout. Sale ends 6/25/2025.', 'simple-login-notification'); ?> 
+					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>WINTER20</code> <?php esc_html_e('at checkout. Sale ends 3/28/2026.', 'simple-login-notification'); ?> 
 					<?php echo simple_login_notification_dismiss_notice_link(); ?>
 				</p>
 			</div>
@@ -808,7 +890,7 @@ function simple_login_notification_dismiss_notice_link() {
 
 function simple_login_notification_check_date_expired() {
 	
-	$expires = apply_filters('simple_login_notification_check_date_expired', '2025-06-25');
+	$expires = apply_filters('simple_login_notification_check_date_expired', '2026-03-28');
 	
 	return (new DateTime() > new DateTime($expires)) ? true : false;
 	
