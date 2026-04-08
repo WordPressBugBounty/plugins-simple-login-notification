@@ -9,7 +9,7 @@
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 5.3
-	Tested up to: 6.9
+	Tested up to: 7.0
 	Stable tag: 2.2
 	Version:    2.2
 	Requires PHP: 5.6.20
