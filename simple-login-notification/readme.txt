@@ -10,8 +10,8 @@ Donate link: https://monzillamedia.com/donate.html
 Contributors: specialk
 Requires at least: 5.3
 Tested up to: 7.0
-Stable tag: 2.2
-Version:    2.2
+Stable tag: 2.3
+Version:    2.3
 Requires PHP: 5.6.20
 Text Domain: simple-login-notification
 Domain Path: /languages
@@ -183,18 +183,12 @@ Send any questions or feedback via my [contact form](https://plugin-planet.com/s
 __Thank you__ for using Simple Login Notification! If you like the plugin, please show support with a [5-star rating &raquo;](https://wordpress.org/support/plugin/simple-login-notification/reviews/?rate=5#new-post)
 
 
-**2.2 (2026/02/01)**
+**2.3 (2026/04/19)**
 
-* Adds option to exclude any users based on ID
-* Adds filter hooks for date and time formats
-* Adds "select all" checkboxes utility
-* Improves login notification message
+* Fixes bug with reset options
 * Updates plugin settings page
-* Adds screenshots to home page
 * Improves readme.txt documentation
-* Generates new language template
-* Tests on PHP 8.4 and 8.5
-* Tests on WordPress 6.9
+* Tests on WordPress 7.0
 
 
 Full changelog @ [https://plugin-planet.com/wp/changelog/simple-login-notification.txt](https://plugin-planet.com/wp/changelog/simple-login-notification.txt)

@@ -10,8 +10,8 @@
 	Contributors: specialk
 	Requires at least: 5.3
 	Tested up to: 7.0
-	Stable tag: 2.2
-	Version:    2.2
+	Stable tag: 2.3
+	Version:    2.3
 	Requires PHP: 5.6.20
 	Text Domain: simple-login-notification
 	Domain Path: /languages
@@ -36,7 +36,7 @@
 if (!defined('ABSPATH')) die();
 
 
-if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.2');
+if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.3');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_REQUIRE')) define('SIMPLE_LOGIN_NOTIFICATION_REQUIRE', '5.3');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_URL'))     define('SIMPLE_LOGIN_NOTIFICATION_URL',     plugin_dir_url(__FILE__));
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_FILE'))    define('SIMPLE_LOGIN_NOTIFICATION_FILE',    plugin_basename(__FILE__));
@@ -355,9 +355,9 @@ function simple_login_notification_check_version() {
 				deactivate_plugins(SIMPLE_LOGIN_NOTIFICATION_FILE);
 				
 				$msg  = '<strong>'. SIMPLE_LOGIN_NOTIFICATION_NAME .'</strong> '. esc_html__('requires WordPress ', 'simple-login-notification') . SIMPLE_LOGIN_NOTIFICATION_REQUIRE;
-				$msg .= esc_html__(' or higher, and has been deactivated! ', 'simple-login-notification');
-				$msg .= esc_html__('Please return to the', 'simple-login-notification') .' <a href="'. admin_url() .'">';
-				$msg .= esc_html__('WP Admin Area', 'simple-login-notification') .'</a> '. esc_html__('to upgrade WordPress and try again.', 'simple-login-notification');
+				$msg .= esc_html__(' or higher, and has been deactivated. ', 'simple-login-notification');
+				$msg .= esc_html__('Please return to the', 'simple-login-notification') .' <a href="'. admin_url('plugins.php') .'">';
+				$msg .= esc_html__('WordPress Admin Area', 'simple-login-notification') .'</a> '. esc_html__('to upgrade WordPress and try again.', 'simple-login-notification');
 				
 				wp_die($msg);
 				
@@ -795,12 +795,12 @@ function simple_login_notification_admin_notices() {
 			
 			<div class="notice notice-success notice-lh">
 				<p>
-					<strong><?php esc_html_e('❄️ Winter Sale!', 'simple-login-notification'); ?></strong> 
-					<?php esc_html_e('Take 20% OFF any of our', 'simple-login-notification'); ?> 
+					<strong><?php esc_html_e('🌼 Spring Sale!', 'simple-login-notification'); ?></strong> 
+					<?php esc_html_e('Take 30% OFF any of our', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/"><?php esc_html_e('Pro WordPress plugins', 'simple-login-notification'); ?></a> 
 					<?php esc_html_e('and', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://books.perishablepress.com/"><?php esc_html_e('books', 'simple-login-notification'); ?></a>. 
-					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>WINTER20</code> <?php esc_html_e('at checkout. Sale ends 3/28/2026.', 'simple-login-notification'); ?> 
+					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>SPRING30</code> <?php esc_html_e('at checkout. Sale ends 6/28/2026.', 'simple-login-notification'); ?> 
 					<?php echo simple_login_notification_dismiss_notice_link(); ?>
 				</p>
 			</div>
@@ -890,7 +890,7 @@ function simple_login_notification_dismiss_notice_link() {
 
 function simple_login_notification_check_date_expired() {
 	
-	$expires = apply_filters('simple_login_notification_check_date_expired', '2026-03-28');
+	$expires = apply_filters('simple_login_notification_check_date_expired', '2026-06-28');
 	
 	return (new DateTime() > new DateTime($expires)) ? true : false;
 	
@@ -906,9 +906,11 @@ function simple_login_notification_reset_options() {
 		
 		if (!current_user_can('manage_options')) exit;
 		
+		$dismiss = delete_option('simple-login-notification-dismiss-notice');
+		
 		$update = delete_option('simple_login_notification_options');
 		
-		$result = $update ? 'true' : 'false';
+		$result = ($dismiss || $update) ? 'true' : 'false';
 		
 		$location = add_query_arg(array('simple-login-notification-reset-options' => $result), admin_url('options-general.php?page=simple-login-notification'));
 		
