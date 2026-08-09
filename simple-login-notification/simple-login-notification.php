@@ -9,9 +9,9 @@
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 5.3
-	Tested up to: 7.0
-	Stable tag: 2.3
-	Version:    2.3
+	Tested up to: 7.1
+	Stable tag: 2.4
+	Version:    2.4
 	Requires PHP: 5.6.20
 	Text Domain: simple-login-notification
 	Domain Path: /languages
@@ -36,7 +36,7 @@
 if (!defined('ABSPATH')) die();
 
 
-if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.3');
+if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.4');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_REQUIRE')) define('SIMPLE_LOGIN_NOTIFICATION_REQUIRE', '5.3');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_URL'))     define('SIMPLE_LOGIN_NOTIFICATION_URL',     plugin_dir_url(__FILE__));
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_FILE'))    define('SIMPLE_LOGIN_NOTIFICATION_FILE',    plugin_basename(__FILE__));
@@ -795,12 +795,12 @@ function simple_login_notification_admin_notices() {
 			
 			<div class="notice notice-success notice-lh">
 				<p>
-					<strong><?php esc_html_e('🌼 Spring Sale!', 'simple-login-notification'); ?></strong> 
-					<?php esc_html_e('Take 30% OFF any of our', 'simple-login-notification'); ?> 
+					<strong><?php esc_html_e('☀️ Summer Sale!', 'simple-login-notification'); ?></strong> 
+					<?php esc_html_e('Take 35% OFF any of our', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/"><?php esc_html_e('Pro WordPress plugins', 'simple-login-notification'); ?></a> 
 					<?php esc_html_e('and', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://books.perishablepress.com/"><?php esc_html_e('books', 'simple-login-notification'); ?></a>. 
-					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>SPRING30</code> <?php esc_html_e('at checkout. Sale ends 6/28/2026.', 'simple-login-notification'); ?> 
+					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>SUMMER</code> <?php esc_html_e('at checkout. Sale ends 9/20/2026.', 'simple-login-notification'); ?> 
 					<?php echo simple_login_notification_dismiss_notice_link(); ?>
 				</p>
 			</div>
@@ -890,7 +890,7 @@ function simple_login_notification_dismiss_notice_link() {
 
 function simple_login_notification_check_date_expired() {
 	
-	$expires = apply_filters('simple_login_notification_check_date_expired', '2026-06-28');
+	$expires = apply_filters('simple_login_notification_check_date_expired', '2026-09-20');
 	
 	return (new DateTime() > new DateTime($expires)) ? true : false;
 	
