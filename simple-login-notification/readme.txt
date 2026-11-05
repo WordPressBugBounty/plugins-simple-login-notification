@@ -9,9 +9,9 @@ Author URI: https://plugin-planet.com/
 Donate link: https://monzillamedia.com/donate.html
 Contributors: specialk
 Requires at least: 5.3
-Tested up to: 7.1
-Stable tag: 2.4
-Version:    2.4
+Tested up to: 7.2
+Stable tag: 2.5
+Version:    2.5
 Requires PHP: 5.6.20
 Text Domain: simple-login-notification
 Domain Path: /languages
@@ -183,17 +183,14 @@ Send any questions or feedback via my [contact form](https://plugin-planet.com/s
 __Thank you__ for using Simple Login Notification! If you like the plugin, please show support with a [5-star rating &raquo;](https://wordpress.org/support/plugin/simple-login-notification/reviews/?rate=5#new-post)
 
 
-**2.4 (2026/08/09)**
+**2.5 (2026/11/05)**
 
+* Checks plugin with Plugin Check
+* Improves security of core functions
+* Improves security of plugin settings
+* Improves security of internal redirects
 * Updates plugin settings page
-* Tests on WordPress 7.1
-
-**2.3 (2026/04/19)**
-
-* Fixes bug with reset options
-* Updates plugin settings page
-* Improves readme.txt documentation
-* Tests on WordPress 7.0
+* Tests on WordPress 7.2
 
 
 Full changelog @ [https://plugin-planet.com/wp/changelog/simple-login-notification.txt](https://plugin-planet.com/wp/changelog/simple-login-notification.txt)

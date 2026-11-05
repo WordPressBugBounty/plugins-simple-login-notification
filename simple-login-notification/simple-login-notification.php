@@ -9,9 +9,9 @@
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 5.3
-	Tested up to: 7.1
-	Stable tag: 2.4
-	Version:    2.4
+	Tested up to: 7.2
+	Stable tag: 2.5
+	Version:    2.5
 	Requires PHP: 5.6.20
 	Text Domain: simple-login-notification
 	Domain Path: /languages
@@ -36,7 +36,7 @@
 if (!defined('ABSPATH')) die();
 
 
-if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.4');
+if (!defined('SIMPLE_LOGIN_NOTIFICATION_VERSION')) define('SIMPLE_LOGIN_NOTIFICATION_VERSION', '2.5');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_REQUIRE')) define('SIMPLE_LOGIN_NOTIFICATION_REQUIRE', '5.3');
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_URL'))     define('SIMPLE_LOGIN_NOTIFICATION_URL',     plugin_dir_url(__FILE__));
 if (!defined('SIMPLE_LOGIN_NOTIFICATION_FILE'))    define('SIMPLE_LOGIN_NOTIFICATION_FILE',    plugin_basename(__FILE__));
@@ -452,10 +452,10 @@ function simple_login_notification_admin_print_scripts() {
 	
 	<script>
 		var 
-		simple_login_notification_reset_title   = '<?php _e('Confirm Reset',            'simple-login-notification'); ?>',
-		simple_login_notification_reset_message = '<?php _e('Restore default options?', 'simple-login-notification'); ?>',
-		simple_login_notification_reset_true    = '<?php _e('Yes, make it so.',         'simple-login-notification'); ?>',
-		simple_login_notification_reset_false   = '<?php _e('No, abort mission.',       'simple-login-notification'); ?>';
+		simple_login_notification_reset_title   = '<?php esc_html_e('Confirm Reset',            'simple-login-notification'); ?>',
+		simple_login_notification_reset_message = '<?php esc_html_e('Restore default options?', 'simple-login-notification'); ?>',
+		simple_login_notification_reset_true    = '<?php esc_html_e('Yes, make it so.',         'simple-login-notification'); ?>',
+		simple_login_notification_reset_false   = '<?php esc_html_e('No, abort mission.',       'simple-login-notification'); ?>';
 	</script>
 	
 	<?php endif;
@@ -690,6 +690,7 @@ function simple_login_notification_callback_checkboxes($args) {
 		
 		foreach ($roles as $role_id => $role_name) {
 			
+			/* translators: this is the role name */
 			$role_name = sprintf(__('%s', 'simple-login-notification'), $role_name);
 			
 			$name = 'simple_login_notification_options['. $id .']['. $role_id .']';
@@ -752,8 +753,8 @@ function simple_login_notification_display_settings() {
 	
 	<div class="wrap">
 		<h1>
-			<span class="dashicons dashicons-email"></span> <?php echo SIMPLE_LOGIN_NOTIFICATION_NAME; ?> 
-			<span class="simple-login-notification-version"><?php echo SIMPLE_LOGIN_NOTIFICATION_VERSION; ?></span>
+			<span class="dashicons dashicons-email"></span> <?php echo esc_html(SIMPLE_LOGIN_NOTIFICATION_NAME); ?> 
+			<span class="simple-login-notification-version"><?php echo esc_html(SIMPLE_LOGIN_NOTIFICATION_VERSION); ?></span>
 		</h1>
 		<form method="post" action="options.php">
 			
@@ -795,12 +796,12 @@ function simple_login_notification_admin_notices() {
 			
 			<div class="notice notice-success notice-lh">
 				<p>
-					<strong><?php esc_html_e('☀️ Summer Sale!', 'simple-login-notification'); ?></strong> 
-					<?php esc_html_e('Take 35% OFF any of our', 'simple-login-notification'); ?> 
+					<strong><?php esc_html_e('🍁 Fall Sale!', 'simple-login-notification'); ?></strong> 
+					<?php esc_html_e('Take 25% OFF any of our', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/"><?php esc_html_e('Pro WordPress plugins', 'simple-login-notification'); ?></a> 
 					<?php esc_html_e('and', 'simple-login-notification'); ?> 
 					<a target="_blank" rel="noopener noreferrer" href="https://books.perishablepress.com/"><?php esc_html_e('books', 'simple-login-notification'); ?></a>. 
-					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>SUMMER</code> <?php esc_html_e('at checkout. Sale ends 9/20/2026.', 'simple-login-notification'); ?> 
+					<?php esc_html_e('Apply code', 'simple-login-notification'); ?> <code>FALL2026</code> <?php esc_html_e('at checkout. Sale ends 12/20/2026.', 'simple-login-notification'); ?> 
 					<?php echo simple_login_notification_dismiss_notice_link(); ?>
 				</p>
 			</div>
@@ -865,7 +866,7 @@ function simple_login_notification_dismiss_notice_save() {
 		
 		$location = admin_url('options-general.php?page=simple-login-notification&dismiss-notice='. $result);
 		
-		wp_redirect($location);
+		wp_safe_redirect($location);
 		
 		exit;
 		
@@ -890,7 +891,7 @@ function simple_login_notification_dismiss_notice_link() {
 
 function simple_login_notification_check_date_expired() {
 	
-	$expires = apply_filters('simple_login_notification_check_date_expired', '2026-09-20');
+	$expires = apply_filters('simple_login_notification_check_date_expired', '2026-12-20');
 	
 	return (new DateTime() > new DateTime($expires)) ? true : false;
 	
@@ -914,7 +915,7 @@ function simple_login_notification_reset_options() {
 		
 		$location = add_query_arg(array('simple-login-notification-reset-options' => $result), admin_url('options-general.php?page=simple-login-notification'));
 		
-		wp_redirect(esc_url_raw($location));
+		wp_safe_redirect(esc_url_raw($location));
 		
 		exit;
 		
